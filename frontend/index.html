@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVA GM Visualise</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- <script src="src/exampla.json"></script> -->
+</head>
+
+<body>
+    <div class="uploadBlock" id="upload">
+        <div class="uploadFile">
+            <h1 id="upload_h1">Загрузите файл для анализа</h1>
+            <div class="uploadInput uploadInputWaiting">
+                <input type="file" id="upload_input_file" accept=".txt,.csv,.xls,.xlsx">
+                <div id="upload_waiting">
+                    <img class="imgCenter" src="images/fileCenter.png">
+                    <img class="imgLeft" src="images/fileLeft.png">
+                    <img class="imgRight" src="images/fileRight.png">
+                </div>
+                <div class="invisible" id="upload_selected">
+                    <img class="imgCenter" src="images/fileSelected.png">
+                </div>
+                <div class="invisible" id="upload_loading">
+                    <img class="imgCenter" src="images/fileLoading.svg">
+                </div>
+                <h2 id="upload_h2">Выберите файл</h2>
+                <h3 id="upload_h3">или перенесите его в данное окно</h3>
+            </div>
+            <div class="uploadSep" id="upload_sep">
+                <h3>Символ, указанный в файле (txt или csv) в качестве разделителя:</h3>
+                <input type="text" id="upload_input_separator" value=";">
+            </div>
+        </div>
+        <button class="invisible" id="upload_button_send">Загрузить файл</button>
+        <button class="uploadButtonTemp" id="upload_button_temp">Загрузить файл</button>
+    </div>
+
+    <div class="columnsBlock invisible" id="columns">
+        <div class="columnsTable">
+            <h1 id="upload_h1">Выберите колонки для загрузки в граф</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <td>
+                            <select id="upload_select_1">
+                                <option value="nan">Не выбрано</option>
+                                <option value="node1">Вершина 1</option>
+                                <option value="node1_attr">Вершина 1 - атрибут</option>
+                                <option value="node2">Вершина 2</option>
+                                <option value="node2_attr">Вершина 2 - атрибут</option>
+                                <option value="edge_weight">Вес ребра</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="upload_select_2">
+                                <option value="nan">Не выбрано</option>
+                                <option value="node1">Вершина 1</option>
+                                <option value="node1_attr">Вершина 1 - атрибут</option>
+                                <option value="node2">Вершина 2</option>
+                                <option value="node2_attr">Вершина 2 - атрибут</option>
+                                <option value="edge_weight">Вес ребра</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="upload_select_3">
+                                <option value="nan">Не выбрано</option>
+                                <option value="node1">Вершина 1</option>
+                                <option value="node1_attr">Вершина 1 - атрибут</option>
+                                <option value="node2">Вершина 2</option>
+                                <option value="node2_attr">Вершина 2 - атрибут</option>
+                                <option value="edge_weight">Вес ребра</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="upload_select_4">
+                                <option value="nan">Не выбрано</option>
+                                <option value="node1">Вершина 1</option>
+                                <option value="node1_attr">Вершина 1 - атрибут</option>
+                                <option value="node2">Вершина 2</option>
+                                <option value="node2_attr">Вершина 2 - атрибут</option>
+                                <option value="edge_weight">Вес ребра</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select id="upload_select_5">
+                                <option value="nan">Не выбрано</option>
+                                <option value="node1">Вершина 1</option>
+                                <option value="node1_attr">Вершина 1 - атрибут</option>
+                                <option value="node2">Вершина 2</option>
+                                <option value="node2_attr">Вершина 2 - атрибут</option>
+                                <option value="edge_weight">Вес ребра</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Клиент</td>
+                        <td>Возраст</td>
+                        <td>Пол</td>
+                        <td>Фирма</td>
+                        <td>Сумма</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>•••</td><td>•••</td><td>•••</td><td>•••</td><td>•••</td></tr>
+                    <tr><td>•••</td><td>•••</td><td>•••</td><td>•••</td><td>•••</td></tr>
+                    <tr><td>•••</td><td>•••</td><td>•••</td><td>•••</td><td>•••</td></tr>
+                    <tr><td>•••</td><td>•••</td><td>•••</td><td>•••</td><td>•••</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <button id="columns_button_send">Построить граф</button>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebarMenu">
+            <div>
+                <!-- <div class="sidebarButton" id="sidebarButtonLegend">
+                    <img id="showMenuLegend" src="images/sidebarButtonLegend.svg" alt="Легенда" />
+                    <p>Легенда</p>
+                </div> -->
+                <!-- <div class="sidebarButton" id="sidebarButtonFilter">
+                    <img src="images/sidebarButtonFilter.svg" alt="Фильтры" />
+                    <p>Фильтры</p>
+                </div> -->
+                <div class="sidebarButton" id="sidebarButtonAlgorithms">
+                    <img src="images/sidebarButtonAlgorithms.svg" alt="Алгоритмы" />
+                    <p>Алгоритмы</p>
+                </div>
+                <div class="sidebarButton" id="sidebarButtonMetrics">
+                    <img src="images/sidebarButtonMetrics.svg" alt="Метрики" />
+                    <p>Метрики</p>
+                </div>
+            </div>
+            <div>
+                <div class="sidebarButton" id="sidebarButtonExit">
+                    <img id="goBack" src="images/sidebarButtonExit.svg" alt="Выход" />
+                    <p>Выход</p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="sidebarBlock sidebarBlockInvisible" id="sidebarBlockLegend">
+            <div class="sidebarBlockLegend">
+                <h1>Легенда</h1>
+            </div>
+        </div> -->
+
+        <div class="sidebarBlock sidebarBlockInvisible" id="sidebarBlockFilter">
+            <div class="sidebarBlockFilter">
+                <h1>Фильтры</h1>
+            </div>
+        </div>
+<!--                     sidebarBlockInvisible                                    -->
+<!--                            |                                                 -->
+        <div class="sidebarBlock sidebarBlockInvisible" id="sidebarBlockAlgorithms">
+            <div class="sidebarBlockAlgorithms">
+                <h1>Алгоритмы</h1>
+
+                <label class="algorithm">
+                    <input type="checkbox" id="algorithmShortestPath">
+                    <div>
+                        <h3>Поиск кратчайшего пути</h3>
+                        <p>
+                            Алгоритм, позволяющий определить наиболее короткий путь между двумя вершинами.
+                            <br>
+                            Например, данный алгоритм может помочь рассчитать более оптимальный маршрут движения транспорта (доставки), и внести изменения в процесс. Алгоритм учитывает расстояния между объектами, а не количество промежуточных точек.
+                        </p>
+                        <!-- <img src="images/algorithmShortestPath.png"> -->
+                    </div>
+                </label>
+                <label class="algorithm">
+                    <input type="checkbox" id="algorithmSearchStronglyConnectedComponentsKosaraju">
+                    <div>
+                        <h3>Поиск сильно связанных компонент (алгоритм Косарайю)</h3>
+                        <p>
+                            Выявляются сильно связанные подграфы - те подграфы, где каждая из вершин достижима из любой другой.
+                            <br>
+                            Позволяет выделять и анализировать взаимосвязанные группы клиентов, имеющих активные экономические взаимоотношения. Это позволяет не рассматривать весь граф экономических связей целиком, а анализировать отдельные интересующие пользователя группы, которые гораздо проще визуализировать. В данном примере происходит разделение на 4 группы, каждая из которых обозначена своим цветом.
+                        </p>
+                        <!-- <img src="images/algorithmSearchStronglyConnectedComponentsKosaraju.png"> -->
+                    </div>
+                </label>
+                <label class="algorithm">
+                    <input type="checkbox" id="algorithmSearchStronglyConnectedComponentsTarjan">
+                    <div>
+                        <h3>Поиск сильно связанных компонент (алгоритм Тарьяна)</h3>
+                        <p>
+                            Выявляются сильно связанные подграфы - те подграфы, где каждая из вершин достижима из любой другой.
+                            <br>
+                            Позволяет выделять и анализировать взаимосвязанные группы клиентов, имеющих активные экономические взаимоотношения. Это позволяет не рассматривать весь граф экономических связей целиком, а анализировать отдельные интересующие пользователя группы, которые гораздо проще визуализировать. В данном примере происходит разделение на 4 группы, каждая из которых обозначена своим цветом.
+                        </p>
+                        <!-- <img src="images/algorithmSearchStronglyConnectedComponentsTarjan.png"> -->
+                    </div>
+                </label>
+                <label class="algorithm">
+                    <input type="checkbox" id="algorithmGetSimpleLoops">
+                    <div>
+                        <h3>Нвхождение простых циклов в графе</h3>
+                        <p>
+                            Аналитический алгоритм, позволяющий находить простые циклы в графе.
+                            <br>
+                            Может применяться для определения групп лиц с устойчивыми финансовыми связями. На слайде представлен пример такого взаимодействия - цветом обозначены пользователи, переводящие друг другу денежные средства. 
+                        </p>
+                        <!-- <img src="images/algorithmGetSimpleLoops.png"> -->
+                    </div>
+                </label>
+                <label class="algorithm">
+                    <input type="checkbox" id="algorithmAdjMatrix">
+                    <div>
+                        <h3>Построение матрицы смежности графа</h3>
+                        <p>
+                            Аналитический алгоритм, возвращающий матрицу смежности графа. Это способ представления графа в виде матрицы логических значений для последующего использования в функциях.
+                            <br>
+                            На матрице можно увидеть, существует ли прямая связь между двумя вершинами. Данный алгоритм можно применить для поиска прямой финансовой связи между участниками процесса. 
+                        </p>
+                        <!-- <img src="images/algorithmAdjMatrix.png"> -->
+                    </div>
+                </label>
+                <label class="algorithm">
+                    <input type="checkbox" id="algorithmKruskal">
+                    <div>
+                        <h3>Поиск минимального остовного дерева (алгоритм Краскала)</h3>
+                        <p>
+                            Данный алгоритм оставляет граф со связями между вершинами на основе минимального веса ребра. Алгоритм пригодится для того, чтобы убрать лишние связи в полносвязном графе для упрощения дальнейшего анализа.
+                        </p>
+                        <!-- <img src="images/algorithmKruskal.png"> -->
+                    </div>
+                </label>
+                <label class="algorithm">
+                    <input type="checkbox" id="algorithmPrim">
+                    <div>
+                        <h3>Поиск минимального остовного дерева (алгоритм Прима)</h3>
+                        <p>
+                            Данный алгоритм оставляет граф со связями между вершинами на основе минимального веса ребра. Алгоритм пригодится для того, чтобы убрать лишние связи в полносвязном графе для упрощения дальнейшего анализа.
+                        </p>
+                        <!-- <img src="images/algorithmPrim.png"> -->
+                    </div>
+                </label>
+                <label class="algorithm">
+                    <input type="checkbox" id="algorithmMaximalMatching">
+                    <div>
+                        <h3>Поиск паросочетаний</h3>
+                        <p>
+                            Алгоритм поиска паросочетаний. Позволяет найти пару для каждой из вершин.
+                        </p>
+                        <!-- <img src="images/algorithmMaximalMatching.png"> -->
+                    </div>
+                </label>
+                <div>
+                    <button id="sidebarBlockAlgorithmsApply">Рассчитать</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebarBlock sidebarBlockInvisible" id="sidebarBlockMetrics">
+            <div class="sidebarBlockMetrics">
+                <h1>Метрики</h1>
+                <label class="algorithm">
+                    <input type="checkbox" id="metricPageRank">
+                    <div>
+                        <h3>PageRank</h3>
+                        <p>
+                            Метрика, использующаяся в направленном графе. Позволяет выявить вершину с наибольшим количеством направленных в нее ребер.
+                            <br>
+                            Например, можно выявлять коррупционные схемы в процессе с участием сотрудников организации. В случае, если сотрудник организации получает большое количество переводов денежных средств в выбранный период (неделю после выплаты премий), можно предположить, что он замешан в коррупционной схеме и получает взятку за предоставленную выгоду (в данном случае, за назначение премии).
+                        </p>
+                        <!-- <img src="images/metricPageRank.png"> -->
+                    </div>
+                </label>
+                <label class="algorithm">
+                    <input type="checkbox" id="metricDegreeСentrality">
+                    <div>
+                        <h3>Degree Сentrality</h3>
+                        <p>
+                            Метрика, позволяющая оценить соотношение количества связи вершин в графе. Определяет количество связей для каждого узла.
+                            <br>
+                            Позволяет осуществить фильтрацию по количеству связей вершины с другими вершинами для последующего использования в других алгоритмах. Может использоваться при выявлении самого активно взаимодействующего участника графа финансовых связей.
+                        </p>
+                        <!-- <img src="images/metricDegreeСentrality.png"> -->
+                    </div>
+                </label>
+                <div>
+                    <button id="sidebarBlockMetricsApply">Рассчитать</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebarBlock sidebarBlockInvisible" id="sidebarBlockExit">
+            <div class="sidebarBlockExit">
+                <div>
+                    <h3>Вы уверены, что хотите выйти?</h3>
+                    <p>Все изменения будут удалены.</p>
+                </div>
+                <button id="sidebarBlockExitExit">Выйти</button>
+                <button id="sidebarBlockExitStay">Остаться</button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="myCanvas">Your browser is not supported canvas. Plaese, change your browser.</canvas>
+
+    <script type="application/javascript" charset="utf-8" src="js/Figures.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/code.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/websocket_client.js"></script>
+    <script type="application/javascript" charset="utf-8" src="js/sidebar.js"></script>
+    
+    
+    
+</body>
+</html>
